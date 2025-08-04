@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GRE Quant Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f4f6f8;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+    }
+    .week {
+      margin-bottom: 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      padding: 1rem;
+    }
+    .week h2 {
+      margin-top: 0;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    input[type="checkbox"] {
+      margin-right: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>GRE Quant Study Tracker</h1>
+
+    <div id="tracker"></div>
+  </div>
+
+  <script>
+    const schedule = [
+      {
+        week: 'Week 1: Arithmetic & Number Properties',
+        tasks: [
+          'Integers, factors, multiples, divisibility',
+          'Odd/Even, primes, LCM, GCD',
+          'Fractions, decimals, percent change',
+          'Ratios, proportions, averages',
+          'Absolute value, remainders',
+          'Mixed practice',
+          'Timed quiz + review'
+        ]
+      },
+      {
+        week: 'Week 2: Algebra',
+        tasks: [
+          'Simplifying expressions',
+          'Linear equations & inequalities',
+          'Quadratic equations & factoring',
+          'Word problems & translations',
+          'Exponents and roots',
+          'Mixed algebra problems',
+          'Timed quiz + error log'
+        ]
+      },
+      {
+        week: 'Week 3: Geometry',
+        tasks: [
+          'Lines, angles, triangles',
+          'Circles and area',
+          'Polygons and volume',
+          'Coordinate geometry',
+          'Graph distance and slope',
+          'Mixed geometry set',
+          'Timed quiz + brush-up'
+        ]
+      },
+      {
+        week: 'Week 4: Data & Review',
+        tasks: [
+          'Mean, median, mode, range',
+          'Probability, combinations, permutations',
+          'Data interpretation',
+          'Rates, mixtures, Venn diagrams',
+          'Quantitative Comparison',
+          'Full quant section practice',
+          'Final review + log check'
+        ]
+      }
+    ];
+
+    const trackerDiv = document.getElementById('tracker');
+
+    schedule.forEach((week, i) => {
+      const weekDiv = document.createElement('div');
+      weekDiv.className = 'week';
+      const heading = document.createElement('h2');
+      heading.textContent = week.week;
+      weekDiv.appendChild(heading);
+
+      const ul = document.createElement('ul');
+
+      week.tasks.forEach((task, j) => {
+        const li = document.createElement('li');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `week${i}-task${j}`;
+        checkbox.checked = localStorage.getItem(checkbox.id) === 'true';
+        checkbox.addEventListener('change', () => {
+          localStorage.setItem(checkbox.id, checkbox.checked);
+        });
+
+        const label = document.createElement('label');
+        label.htmlFor = checkbox.id;
+        label.textContent = task;
+
+        li.appendChild(checkbox);
+        li.appendChild(label);
+        ul.appendChild(li);
+      });
+
+      weekDiv.appendChild(ul);
+      trackerDiv.appendChild(weekDiv);
+    });
+  </script>
+</body>
+</html>
